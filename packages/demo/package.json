@@ -1,18 +1,33 @@
 {
   "name": "demo",
-  "version": "1.0.0-alpha.0",
-  "main": "dist/index",
-  "types": "dist/index",
+  "version": "1.0.1",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "pnpm run clean && pnpm run compile",
-    "clean": "rimraf -rf ./dist",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepublishOnly": "pnpm run build"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
   },
-  "publish": {
+  "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   }
